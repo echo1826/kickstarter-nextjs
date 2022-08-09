@@ -2,7 +2,7 @@
 require('dotenv').config();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require('web3');
-const compiledFactory = require('./ethereum/build/CampaignFactory.json');
+const compiledFactory = require('./build/CampaignFactory.json');
 
 const api = `https://rinkeby.infura.io/v3/${process.env.API_KEY}`;
 
