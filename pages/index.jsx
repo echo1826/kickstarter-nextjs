@@ -1,12 +1,21 @@
 import Head from "next/head";
 import factory from "../ethereum/factory";
-import { useEffect, useState } from "react";
+import { Card } from "semantic-ui-react";
+import React from "react";
+import 'semantic-ui-css/semantic.min.css';
 
-export default function Home({ campaigns }) {
-    Home.getInitialProps = async () => {
-        const campaigns = await factory.methods.getCampaigns().call();
-        return { campaigns };
-    };
+function Home({ campaigns }) {
+    function renderCampaigns() {
+        const items = campaigns.map((campaignAddress) => {
+            return {
+                header: campaignAddress,
+                description: <a>View Campaign</a>,
+                fluid: true,
+            };
+        });
+
+        return <Card.Group items={items} />;
+    }
 
     return (
         <div>
@@ -18,7 +27,14 @@ export default function Home({ campaigns }) {
                 />
             </Head>
             <h1>This is the campaign list</h1>
-            <div>{campaigns}</div>
+            {renderCampaigns()}
         </div>
     );
 }
+
+Home.getInitialProps = async () => {
+    const campaigns = await factory.methods.getCampaigns().call();
+    return { campaigns };
+};
+
+export default Home;
