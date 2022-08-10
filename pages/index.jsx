@@ -1,8 +1,8 @@
 import Head from "next/head";
 import factory from "../ethereum/factory";
-import { Card } from "semantic-ui-react";
+import { Card, Button } from "semantic-ui-react";
 import React from "react";
-import 'semantic-ui-css/semantic.min.css';
+import "semantic-ui-css/semantic.min.css";
 
 function Home({ campaigns }) {
     function renderCampaigns() {
@@ -28,6 +28,7 @@ function Home({ campaigns }) {
             </Head>
             <h1>This is the campaign list</h1>
             {renderCampaigns()}
+            <Button content="Create Campaign" icon="add circle" primary />
         </div>
     );
 }
