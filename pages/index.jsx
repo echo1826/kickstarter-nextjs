@@ -1,5 +1,6 @@
 import Head from "next/head";
 import factory from "../ethereum/factory";
+import Layout from "../components/layout";
 import { Card, Button } from "semantic-ui-react";
 import React from "react";
 import "semantic-ui-css/semantic.min.css";
@@ -18,7 +19,7 @@ function Home({ campaigns }) {
     }
 
     return (
-        <div>
+        <>
             <Head>
                 <title>CrowdCoin</title>
                 <meta
@@ -26,10 +27,12 @@ function Home({ campaigns }) {
                     content="nextjs app kickstarter clone utilizing the ethereum network to store campaigns"
                 />
             </Head>
-            <h1>This is the campaign list</h1>
-            {renderCampaigns()}
-            <Button content="Create Campaign" icon="add circle" primary />
-        </div>
+            <Layout>
+                <h3>Open Campaigns</h3>
+                <Button floated="right" content="Create Campaign" icon="add circle" primary />
+                {renderCampaigns()}
+            </Layout>
+        </>
     );
 }
 
