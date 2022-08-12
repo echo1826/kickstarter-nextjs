@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { Form, Container, Button, Input, Label } from "semantic-ui-react";
+import {
+    Form,
+    Container,
+    Button,
+    Input,
+    Message,
+} from "semantic-ui-react";
 import Layout from "../../components/layout";
-import factory from '../../ethereum/factory';
-import web3 from '../../ethereum/web3';
+import factory from "../../ethereum/factory";
+import web3 from "../../ethereum/web3";
 import "semantic-ui-css/semantic.min.css";
 
 // nested route: /campaigns/new
@@ -16,25 +22,23 @@ function NewCampaign() {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        if(!input) {
-            setErrorMessage("Please set a minimum contribution amount for the new campaign");
-            return;
-        }
-        const accounts = await web3.eth.getAccounts();
-        await factory.methods.createCampaign(input).send({
-            from: accounts[0]
-        });
-        if(errorMessage) {
+        try {
+            const accounts = await web3.eth.getAccounts();
+            await factory.methods.createCampaign(input).send({
+                from: accounts[0],
+            });
+            setInput("");
             setErrorMessage("");
+        } catch (error) {
+            setErrorMessage(error.message);
         }
-        setInput("");
     }
 
     return (
         <>
             <Container>
                 <Layout>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} error={!!errorMessage}>
                         <Form.Field>
                             <label htmlFor="minContribution">
                                 Minimum Contribution
@@ -46,9 +50,9 @@ function NewCampaign() {
                                 value={input}
                                 onChange={handleInputChange}
                             />
-                            {errorMessage && <Label basic color='red' pointing>{errorMessage}</Label>}
                         </Form.Field>
                         <Button primary>Create!</Button>
+                        <Message error header="Oops" content={errorMessage} />
                     </Form>
                 </Layout>
             </Container>
