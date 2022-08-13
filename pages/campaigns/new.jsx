@@ -15,6 +15,7 @@ import "semantic-ui-css/semantic.min.css";
 function NewCampaign() {
     const [input, setInput] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false);
     function handleInputChange(event) {
         event.preventDefault();
         setInput(event.target.value);
@@ -23,10 +24,12 @@ function NewCampaign() {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
+            setLoading(true);
             const accounts = await web3.eth.getAccounts();
             await factory.methods.createCampaign(input).send({
                 from: accounts[0],
             });
+            setLoading(false);
             setInput("");
             setErrorMessage("");
         } catch (error) {
@@ -51,7 +54,7 @@ function NewCampaign() {
                                 onChange={handleInputChange}
                             />
                         </Form.Field>
-                        <Button primary>Create!</Button>
+                        <Button loading={loading} primary>Create!</Button>
                         <Message error header="Oops" content={errorMessage} />
                     </Form>
                 </Layout>
