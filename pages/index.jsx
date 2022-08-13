@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import factory from "../ethereum/factory";
 import Layout from "../components/layout";
 import { Card, Button } from "semantic-ui-react";
@@ -10,7 +11,7 @@ function Home({ campaigns }) {
         const items = campaigns.map((campaignAddress) => {
             return {
                 header: campaignAddress,
-                description: <a>View Campaign</a>,
+                description: <Link href={`/campaigns/:${campaignAddress}`}>View Campaign</Link>,
                 fluid: true,
             };
         });

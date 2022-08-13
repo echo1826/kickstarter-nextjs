@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-    Form,
-    Container,
-    Button,
-    Input,
-    Message,
-} from "semantic-ui-react";
+import { Form, Container, Button, Input, Message } from "semantic-ui-react";
 import Layout from "../../components/layout";
 import factory from "../../ethereum/factory";
 import web3 from "../../ethereum/web3";
@@ -23,18 +17,19 @@ function NewCampaign() {
 
     async function handleSubmit(event) {
         event.preventDefault();
+        setLoading(true);
+        setErrorMessage("");
         try {
-            setLoading(true);
             const accounts = await web3.eth.getAccounts();
             await factory.methods.createCampaign(input).send({
                 from: accounts[0],
             });
-            setLoading(false);
             setInput("");
             setErrorMessage("");
         } catch (error) {
             setErrorMessage(error.message);
         }
+        setLoading(false);
     }
 
     return (
@@ -54,7 +49,9 @@ function NewCampaign() {
                                 onChange={handleInputChange}
                             />
                         </Form.Field>
-                        <Button loading={loading} primary>Create!</Button>
+                        <Button loading={loading} primary>
+                            Create!
+                        </Button>
                         <Message error header="Oops" content={errorMessage} />
                     </Form>
                 </Layout>
