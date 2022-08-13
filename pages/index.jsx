@@ -11,7 +11,11 @@ function Home({ campaigns }) {
         const items = campaigns.map((campaignAddress) => {
             return {
                 header: campaignAddress,
-                description: <Link href={`/campaigns/:${campaignAddress}`}>View Campaign</Link>,
+                description: (
+                    <Link href={`/campaigns/:${campaignAddress}`}>
+                        View Campaign
+                    </Link>
+                ),
                 fluid: true,
             };
         });
@@ -30,7 +34,14 @@ function Home({ campaigns }) {
             </Head>
             <Layout>
                 <h3>Open Campaigns</h3>
-                <Button floated="right" content="Create Campaign" icon="add circle" primary />
+                <Link href="/campaigns/new">
+                    <Button
+                        floated="right"
+                        content="Create Campaign"
+                        icon="add circle"
+                        primary
+                    />
+                </Link>
                 {renderCampaigns()}
             </Layout>
         </>
