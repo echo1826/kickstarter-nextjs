@@ -12,7 +12,7 @@ function Home({ campaigns }) {
             return {
                 header: campaignAddress,
                 description: (
-                    <Link href={`/campaigns/:${campaignAddress}`}>
+                    <Link href={`/campaigns/${campaignAddress}`}>
                         View Campaign
                     </Link>
                 ),

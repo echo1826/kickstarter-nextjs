@@ -52,6 +52,7 @@ function NewCampaign() {
                         <Button loading={loading} primary>
                             Create!
                         </Button>
+                        {loading && <Message header="Pending" content="Transaction Pending"/>}
                         <Message error header="Oops" content={errorMessage} />
                     </Form>
                 </Layout>
