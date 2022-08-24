@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Card, Grid } from "semantic-ui-react";
 import Layout from "../../../components/layout";
 import "semantic-ui-css/semantic.min.css";
@@ -6,7 +7,8 @@ import ContributeForm from "../../../components/contributeForm";
 import campaignConstructor from "../../../ethereum/campaign";
 
 function CampaignDetails(props) {
-    console.log(props);
+
+    const router = useRouter();
 
     function renderCards() {
         const {
@@ -62,7 +64,7 @@ function CampaignDetails(props) {
                 <Grid>
                     <Grid.Column width={10}>{renderCards()}</Grid.Column>
                     <Grid.Column width={6}>
-                        <ContributeForm />
+                        <ContributeForm campaignAddress={router.query.campaignAddress}/>
                     </Grid.Column>
                 </Grid>
             </Layout>

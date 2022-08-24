@@ -1,14 +1,27 @@
 import React, { useState } from "react";
 import { Form, Container, Button, Input, Message } from "semantic-ui-react";
+import campaignConstructor from "../ethereum/campaign";
+import web3 from "../ethereum/web3";
 
-function ContributeForm() {
+function ContributeForm({campaignAddress}) {
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        console.log("submitted");
         setLoading(true);
+        const campaign = campaignConstructor(campaignAddress);
+        try {
+            const accounts = await web3.eth.getAccounts();
+            await campaign.methods.contribute().send({
+                from: accounts[0],
+                value: web3.utils.toWei(input, 'ether')
+            });
+        } catch(err) {
+            console.log(err);
+        }
+
+        setLoading(false);
     }
 
     return (
@@ -25,7 +38,8 @@ function ContributeForm() {
                     }}
                 />
             </Form.Field>
-            <Button primary>Contribute</Button>
+            <Button loading={loading} primary>Contribute</Button>
+            {loading && <Message header="Pending" content="Transaction Pending" />}
         </Form>
     );
 }
