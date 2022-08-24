@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { Form, Container, Button, Input, Message } from "semantic-ui-react";
 import Layout from "../../components/layout";
 import factory from "../../ethereum/factory";
@@ -10,6 +11,7 @@ function NewCampaign() {
     const [input, setInput] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
     function handleInputChange(event) {
         event.preventDefault();
         setInput(event.target.value);
@@ -30,6 +32,7 @@ function NewCampaign() {
             setErrorMessage(error.message);
         }
         setLoading(false);
+        router.push("/");
     }
 
     return (
@@ -52,7 +55,12 @@ function NewCampaign() {
                         <Button loading={loading} primary>
                             Create!
                         </Button>
-                        {loading && <Message header="Pending" content="Transaction Pending"/>}
+                        {loading && (
+                            <Message
+                                header="Pending"
+                                content="Transaction Pending"
+                            />
+                        )}
                         <Message error header="Oops" content={errorMessage} />
                     </Form>
                 </Layout>

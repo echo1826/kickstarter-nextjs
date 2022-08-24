@@ -1,13 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Card, Grid } from "semantic-ui-react";
+import Link from "next/link";
+import { Card, Grid, Button } from "semantic-ui-react";
 import Layout from "../../../components/layout";
 import "semantic-ui-css/semantic.min.css";
 import ContributeForm from "../../../components/contributeForm";
 import campaignConstructor from "../../../ethereum/campaign";
+import web3 from "../../../ethereum/web3";
 
 function CampaignDetails(props) {
-
     const router = useRouter();
 
     function renderCards() {
@@ -20,7 +21,7 @@ function CampaignDetails(props) {
         } = props;
         const items = [
             {
-                header: balance,
+                header: web3.utils.fromWei(balance, "ether"),
                 meta: "Campaign Balance (ether)",
                 description: "The current balance this campaign has currently",
                 style: { overflowWrap: "break-word" },
@@ -62,9 +63,19 @@ function CampaignDetails(props) {
             <Layout>
                 <h1>Campaign Details</h1>
                 <Grid>
-                    <Grid.Column width={10}>{renderCards()}</Grid.Column>
+                    <Grid.Column width={10}>
+                        {renderCards()}
+                        <Link
+                            href={`/campaigns/${router.query.campaignAddress}/requests`}
+                        >
+                            <Button primary>View Requests</Button>
+                        </Link>
+                    </Grid.Column>
+
                     <Grid.Column width={6}>
-                        <ContributeForm campaignAddress={router.query.campaignAddress}/>
+                        <ContributeForm
+                            campaignAddress={router.query.campaignAddress}
+                        />
                     </Grid.Column>
                 </Grid>
             </Layout>
