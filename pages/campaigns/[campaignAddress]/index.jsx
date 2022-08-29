@@ -63,20 +63,24 @@ function CampaignDetails(props) {
             <Layout>
                 <h1>Campaign Details</h1>
                 <Grid>
-                    <Grid.Column width={10}>
-                        {renderCards()}
-                        <Link
-                            href={`/campaigns/${router.query.campaignAddress}/requests`}
-                        >
-                            <Button primary>View Requests</Button>
-                        </Link>
-                    </Grid.Column>
+                    <Grid.Row>
+                        <Grid.Column width={10}>{renderCards()}</Grid.Column>
 
-                    <Grid.Column width={6}>
-                        <ContributeForm
-                            campaignAddress={router.query.campaignAddress}
-                        />
-                    </Grid.Column>
+                        <Grid.Column width={6}>
+                            <ContributeForm
+                                campaignAddress={router.query.campaignAddress}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Link
+                                href={`/campaigns/${router.query.campaignAddress}/requests`}
+                            >
+                                <Button primary>View Requests</Button>
+                            </Link>
+                        </Grid.Column>
+                    </Grid.Row>
                 </Grid>
             </Layout>
         </>
