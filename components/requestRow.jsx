@@ -7,6 +7,8 @@ function RequestRow(props) {
     const { request, campaignAddress, id, approversCount } = props;
     // console.log(request);
 
+    const readyToFinalize = request.approvalCount > approversCount / 2;
+
     async function onApprove(event) {
         event.preventDefault();
         const accounts = await web3.eth.getAccounts();
@@ -23,7 +25,7 @@ function RequestRow(props) {
 
     return (
         <>
-            <Table.Row>
+            <Table.Row positive={readyToFinalize && !request.complete} disabled={request.complete}>
                 <Table.Cell>{id + 1}</Table.Cell>
                 <Table.Cell>{request.description}</Table.Cell>
                 <Table.Cell>
@@ -33,15 +35,20 @@ function RequestRow(props) {
                 <Table.Cell>
                     {request.approvalCount}/{approversCount}
                 </Table.Cell>
+
                 <Table.Cell>
-                    <Button color="green" basic onClick={onApprove}>
-                        Approve
-                    </Button>
+                    {request.complete ? null : (
+                        <Button color="green" basic onClick={onApprove}>
+                            Approve
+                        </Button>
+                    )}
                 </Table.Cell>
                 <Table.Cell>
-                    <Button color="teal" basic onClick={onFinalize}>
-                        Finalize
-                    </Button>
+                    {request.complete ? null : (
+                        <Button color="teal" basic onClick={onFinalize}>
+                            Finalize
+                        </Button>
+                    )}
                 </Table.Cell>
             </Table.Row>
         </>
