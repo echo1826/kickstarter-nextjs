@@ -1,34 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Kickstarter
 
-## Getting Started
+## Description
 
-First, run the development server:
+This is a web3 platform that is a mockup of how kickstarter would function on a decentralized platform. This was made as a means of practice and understanding the web3 library on how it worked, as well as blockchain concepts on how it worked. Currently not a working platform for public use, this was intended only for educational purposes only.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Technologies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   web3.js
+-   Next.js
+-   Semantic-ui-react
+-   Solidity
+-   ganache-cli
+-   truffle/hdwallet
+-   react
+-   infura
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Deployment
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+There is no working deployment for this project. If you want to see this platform live, you must download it locally and run it on your machine.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Installation
 
-## Learn More
+1. Clone the repository down onto your local machine
+2. Install all dependencies by running `npm install` in the CLI
+3. Create environment variables in a .env.local file
+    - The variables needed will be a NEXT_PUBLIC_API_KEY variable for the [infura API](https://docs.infura.io/infura/getting-started)
+    - A NEXT_PUBLIC_CONTRACT_ADDRESS variable will also be needed. This can either be the one I have currently deployed at 0x448aaB9ca7091fE0AA721a3328166DC2aB529F73 on the Rinkeby Test Network, or you can deploy your own contract instance using the deploy scripts found in the Ethereum directory
+4. Run `npm run dev` command in your CLI
 
-To learn more about Next.js, take a look at the following resources:
+## Mock-up
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Homepage
+![Homepage](./images/kickstarter.PNG)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Campaign Page
+![Campaign page](./images/campaign.PNG)
 
-## Deploy on Vercel
+### New Campaign Form
+![Campaign Form](./images/new-campaign.PNG)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Request Page
+![Request page](./images/request.PNG)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### New Request Form
+![Request Form](./images/new-request.PNG)
